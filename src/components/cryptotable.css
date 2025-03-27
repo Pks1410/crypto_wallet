@@ -48,70 +48,101 @@
     background-color: #333;
 } */ 
 
+
+ .crypto-table-container {
+    width: 100%;
+    overflow-x: auto; 
+    display: flex;
+    justify-content: center;
+  }
+
 .crypto-table {
-    width: 100vw;  /* Full viewport width */
-    max-width: 100%;
+    width: 100%;  
     background-color: #121212;
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-  }
-  
-  table {
-    width: 100%;
+    box-shadow: 10px 10px 10px rgba(255, 255, 255, 0.1);
+    display: flex;
+    margin: left;
+    overflow-x: auto; 
+    justify-content: left;
+}
+
+table {
+    width: 200%;
     border-collapse: collapse;
-  }
-  
-  th, td {
+}
+
+th, td {
     padding: 15px;
     text-align: left;
-  }
-  
-  th {
+    white-space: nowrap; 
+}
+
+th {
     font-size: 14px;
     text-transform: uppercase;
-  }
-  
-  td {
+}
+
+td {
     font-size: 16px;
-  }
-  
-  .coin-logo {
+}
+
+.coin-logo {
     width: 25px;
     height: 25px;
     margin-right: 8px;
-  }
-  
-  .coin-name {
+}
+
+.coin-name {
     display: flex;
     align-items: center;
-  }
-  
-  .symbol {
+}
+
+.symbol {
     color: gray;
     font-size: 12px;
-  }
-  
-  .green {
+}
+
+.green {
     color: #00ff00;
-  }
-  
-  .red {
+}
+
+.red {
     color: #ff4d4d;
-  }
-  
-  .star-icon {
+}
+
+.star-icon {
     color: gray;
     cursor: pointer;
-  }
-  
-  .star-icon:hover {
+}
+
+.star-icon:hover {
     color: gold;
+}
+
+.trend-chart {
+    width: 200px;
+} 
+
+.crypto-table th, .crypto-table td {
+    text-align: left;
+    padding: 20px;
+    white-space: nowrap; 
   }
   
-  .trend-chart {
-    width: 100px;
+  .crypto-table th {
+    background-color: #111;
+    color: white;
   }
   
+  .crypto-table tr:nth-child(even) {
+    background-color: #222;
+  }
+  
+  .crypto-table tr:hover {
+    background-color: #333;
+  }
+    
 
