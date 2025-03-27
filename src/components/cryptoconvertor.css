@@ -1,0 +1,69 @@
+.crypto-converter {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .converter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .input-field {
+    width: 100px;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+  }
+  
+  select {
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+  }
+  
+  .swap-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .swap-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .conversion-result {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    color: #ffd700;
+  }
+  
+  .refresh-btn {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .refresh-btn:hover {
+    background-color: #666;
+  }
+  

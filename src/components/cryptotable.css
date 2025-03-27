@@ -1,33 +1,29 @@
-/* Make sure the page takes up the full viewport */
-body, html {
+/* {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
-    background-color: #121212; /* Dark background for crypto theme */
-}
-
-/* Center the table and make it cover most of the page */
+    background-color: #121212;
+} 
 .crypto-table-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;  /* Full height */
-    width: 100vw;   /* Full width */
+    height: 100vh; 
+    width: 100vw;   
 }
 
 .crypto-table {
-    width: 90vw; /* 90% of the viewport width */
-    height: 80vh; /* 80% of the viewport height */
+    width: 90vw; 
+    height: 80vh;
     background-color: black;
     color: white;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-    overflow: auto; /* Enable scrolling if needed */
+    overflow: auto; 
 }
 
-/* Styling for table */
 .crypto-table table {
     width: 100%;
     border-collapse: collapse;
@@ -50,4 +46,72 @@ body, html {
 
 .crypto-table tr:hover {
     background-color: #333;
-}
+} */ 
+
+.crypto-table {
+    width: 100vw;  /* Full viewport width */
+    max-width: 100%;
+    background-color: #121212;
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  th {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  
+  td {
+    font-size: 16px;
+  }
+  
+  .coin-logo {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
+  }
+  
+  .coin-name {
+    display: flex;
+    align-items: center;
+  }
+  
+  .symbol {
+    color: gray;
+    font-size: 12px;
+  }
+  
+  .green {
+    color: #00ff00;
+  }
+  
+  .red {
+    color: #ff4d4d;
+  }
+  
+  .star-icon {
+    color: gray;
+    cursor: pointer;
+  }
+  
+  .star-icon:hover {
+    color: gold;
+  }
+  
+  .trend-chart {
+    width: 100px;
+  }
+  
+
