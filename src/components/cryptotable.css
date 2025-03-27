@@ -1,0 +1,53 @@
+/* Make sure the page takes up the full viewport */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #121212; /* Dark background for crypto theme */
+}
+
+/* Center the table and make it cover most of the page */
+.crypto-table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* Full height */
+    width: 100vw;   /* Full width */
+}
+
+.crypto-table {
+    width: 90vw; /* 90% of the viewport width */
+    height: 80vh; /* 80% of the viewport height */
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    overflow: auto; /* Enable scrolling if needed */
+}
+
+/* Styling for table */
+.crypto-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.crypto-table th, .crypto-table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.crypto-table th {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-size: 1.2rem;
+}
+
+.crypto-table tr:nth-child(even) {
+    background-color: #222;
+}
+
+.crypto-table tr:hover {
+    background-color: #333;
+}

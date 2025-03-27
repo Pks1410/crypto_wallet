@@ -1,39 +1,35 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Navbar from "./components/Navbar";
+// import CryptoMarket from "./components/cryptomarket";
+import CryptoTable from "./components/cryptotable";
 import WalletManager from "./components/walletManager";
 import WalletDashboard from "./components/walletdashboard";
-import CryptoMarket from "./components/cryptomarket";
-// import Signup from "./signup";
-// import Login from "./login";
-// import Home from "./home";
+import Signup from "./signup";
+import Login from "./login";
 import "./App.css";
-
-// const PrivateRoute = ({ children }) => {
-//   return localStorage.getItem("token") ? children : <Navigate to="/login" />;
-// };
 
 const App = () => {
   return (
-    // <Router>
+    <Router>
+      <Navbar /> {/* Navbar is always visible */}
       <div className="app-container">
-        <header className="header">
-          <h1>My Crypto Wallet</h1>
-        </header>
-           <main>
-          {/* <Routes>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/home" element={<PrivateRoute><Home /></PrivateRoute>} />
-            <Route path="/" element={<Navigate to="/login" />} />
-          </Routes> */}
-
-          <WalletManager />
-          <WalletDashboard />
-          <CryptoMarket />
-        </main>
+        <Routes>
+          {/* Default landing page */}
+          <Route path="/" element={<CryptoTable />} />
+          <Route path="/walletmanager" element={<WalletManager />} />
+          <Route path="/walletdashboard" element={<WalletDashboard />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/" />} /> {/* Redirect unknown routes */}
+        </Routes>
       </div>
-    // </Router>
+    </Router>
   );
 };
 
 export default App;
+
+
+
+
