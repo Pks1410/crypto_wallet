@@ -32,7 +32,7 @@ const CryptoTable = () => {
   }, []);
 
   return (
-    <div className="crypto-table">
+    // <div className="crypto-table">
       <table>
         <thead>
           <tr>
@@ -45,7 +45,7 @@ const CryptoTable = () => {
             <th>7d</th>
             <th>Market Cap</th>
             <th>Volume (24h)</th>
-            <th>Trend</th>
+
           </tr>
         </thead>
         <tbody>
@@ -71,14 +71,11 @@ const CryptoTable = () => {
               </td>
               <td>${coin.market_cap.toLocaleString()}</td>
               <td>${coin.total_volume.toLocaleString()}</td>
-              <td>
-                <img src={coin.sparkline_in_7d} alt="trend" className="trend-chart" />
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div>
+    // </div>
   );
 };
 

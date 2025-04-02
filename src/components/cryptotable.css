@@ -1,11 +1,11 @@
-/* {
+/* *{
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
     background-color: #121212;
-} 
-.crypto-table-container {
+}  */
+/* .crypto-table-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +46,7 @@
 
 .crypto-table tr:hover {
     background-color: #333;
-} */ 
+}   */
 
 
 .crypto-table-container {
@@ -54,35 +54,40 @@
     overflow-x: auto; 
     display: flex;
     justify-content: center;
-  }
+  } 
 
 .crypto-table {
     width: 100%;  
-    background-color: #121212;
+    background-color: darkgrey;
     color: white;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 10px 10px 10px rgba(255, 255, 255, 0.1);
+    box-shadow: 50px 10px 10px rgba(28, 147, 103, 0.1);
     display: flex;
     margin: left;
     overflow-x: auto; 
     justify-content: left;
-}
+} 
 
 table {
-    width: 200%;
-    border-collapse: collapse;
-}
+    width: 100%;
+    border-collapse:collapse; 
+} 
 
 th, td {
-    padding: 15px;
-    text-align: left;
-    white-space: nowrap; 
-}
+    padding: 20px;
+    text-align: center;
+    white-space: wrap;  
+    width: auto;
+}  
 
 th {
     font-size: 14px;
     text-transform: uppercase;
+}
+tr {
+    display: table-row;
+    width: 100%;
 }
 
 td {
@@ -90,8 +95,8 @@ td {
 }
 
 .coin-logo {
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
     margin-right: 8px;
 }
 
@@ -101,20 +106,20 @@ td {
 }
 
 .symbol {
-    color: gray;
+    color: darkorange;
     font-size: 12px;
 }
 
 .green {
-    color: #00ff00;
+    color:green;
 }
 
 .red {
-    color: #ff4d4d;
+    color:red;
 }
 
 .star-icon {
-    color: gray;
+    color: blue;
     cursor: pointer;
 }
 
@@ -122,26 +127,27 @@ td {
     color: gold;
 }
 
-.trend-chart {
-    width: 200px;
-} 
-
 .crypto-table th, .crypto-table td {
     text-align: left;
     padding: 20px;
-    white-space: nowrap; 
+    white-space: wrap; 
   }
   
   .crypto-table th {
-    background-color: #111;
+    background-color:black;
     color: white;
   }
   
   .crypto-table tr:nth-child(even) {
-    background-color: #222;
+    background-color: gray;
   }
   
   .crypto-table tr:hover {
-    background-color: #333;
+    background-color:black;
   }
-    
+
+  .table-wrapper {
+    display: flex;
+    flex-grow: 1;
+    width: 100%;
+}
