@@ -40,6 +40,7 @@ import WalletDashboard from "./components/walletdashboard";
 import Signup from "./signup";
 import Login from "./login";
 import "./App.css";
+import CryptoScroller from "./components/bottomnav";
 
 const App = () => {
   return (
@@ -54,6 +55,7 @@ const App = () => {
               <div>
                 <CryptoTable />
                 <CryptoConverter />
+                <CryptoScroller/>
               </div>
             } 
           />

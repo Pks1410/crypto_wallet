@@ -171,23 +171,109 @@
 
 // export default CryptoConverter;
 
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import { FaExchangeAlt } from "react-icons/fa"; // Swap icon
+// import "./cryptoconvertor.css"; // Ensure styling
+
+// const API_KEY = "59d246d71030b255fafb32e2af2d0bdc"; // ⚠️ Store securely in .env file
+
+// const CryptoConverter = () => {
+//   const [amount, setAmount] = useState(1);
+//   const [fromCurrency, setFromCurrency] = useState("BTC");
+//   const [toCurrency, setToCurrency] = useState("USD");
+//   const [convertedAmount, setConvertedAmount] = useState(0);
+//   const [loading, setLoading] = useState(false);
+
+//   const currencyOptions = [
+//     "BTC", "ETH", "BNB", "SOL", "ADA", "DOGE", "XRP", "TRX", "USDT", "USDC", "INR", "EUR", "USD"
+//   ];
+
+//   useEffect(() => {
+//     if (amount > 0) {
+//       fetchConversionRate();
+//     }
+//   }, [amount, fromCurrency, toCurrency]);
+
+//   const fetchConversionRate = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await axios.get(
+//         "https://api.binance.com/api/v3/ticker/price",
+//         {
+//           headers: { "X-CMC_PRO_API_KEY": API_KEY },
+//           params: { amount, symbol: fromCurrency, convert: toCurrency },
+//         }
+//       );
+
+//       const rate = response.data.data.quote[toCurrency].price || 1;
+//       setConvertedAmount(rate.toFixed(6));
+//     } catch (error) {
+//       console.error("Error fetching conversion rate:", error);
+//       setConvertedAmount("Error");
+//     }
+//     setLoading(false);
+//   };
+
+//   const swapCurrencies = () => {
+//     setFromCurrency(toCurrency);
+//     setToCurrency(fromCurrency);
+//   };
+
+//   return (
+//     <div className="crypto-converter">
+//       <h2>Crypto Converter</h2>
+//       <div className="converter-container">
+//         <input
+//           type="number"
+//           value={amount}
+//           onChange={(e) => setAmount(e.target.value)}
+//           className="input-field"
+//           min="0"
+//         />
+//         <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
+//           {currencyOptions.map((curr) => (
+//             <option key={curr} value={curr}>{curr}</option>
+//           ))}
+//         </select>
+
+//         <button className="swap-btn" onClick={swapCurrencies}>
+//           <FaExchangeAlt />
+//         </button>
+
+//         <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+//           {currencyOptions.map((curr) => (
+//             <option key={curr} value={curr}>{curr}</option>
+//           ))}
+//         </select>
+//       </div>
+
+//       <p className="conversion-result">
+//         {amount} {fromCurrency} ={" "}
+//         <span className="highlight">{loading ? "Loading..." : convertedAmount}</span> {toCurrency}
+//       </p>
+
+//       <button className="refresh-btn" onClick={fetchConversionRate}>Refresh</button>
+//     </div>
+//   );
+// };
+
+// export default CryptoConverter;
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { FaExchangeAlt } from "react-icons/fa"; // Swap icon
-import "./cryptoconvertor.css"; // Ensure styling
-
-const API_KEY = "59d246d71030b255fafb32e2af2d0bdc"; // ⚠️ Store securely in .env file
+import { FaExchangeAlt } from "react-icons/fa";
+import "./cryptoconvertor.css";
+const API_KEY = process.env.REACT_APP_API_KEY;
 
 const CryptoConverter = () => {
   const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("BTC");
   const [toCurrency, setToCurrency] = useState("USD");
-  const [convertedAmount, setConvertedAmount] = useState(0);
+  const [convertedAmount, setConvertedAmount] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const currencyOptions = [
-    "BTC", "ETH", "BNB", "SOL", "ADA", "DOGE", "XRP", "TRX", "USDT", "USDC", "INR", "EUR", "USD"
-  ];
+  const currencyOptions = ["BTC", "ETH", "USDT", "BNB", "SOL", "INR", "USD", "EUR"];
 
   useEffect(() => {
     if (amount > 0) {
@@ -195,25 +281,57 @@ const CryptoConverter = () => {
     }
   }, [amount, fromCurrency, toCurrency]);
 
+  // const fetchConversionRate = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await axios.get(`https://pro-api.coinmarketcap.com/v1/tools/price-conversion`, 
+  //       {
+  //         headers: { "X-CMC_PRO_API_KEY": API_KEY },
+  //       params: {
+  //         amount: amount,
+  //         symbol: fromCurrency,  // Fix here: `symbol` instead of `from`
+  //         convert: toCurrency,   // Fix here: `convert` instead of `to`
+  //       },
+  //     });
+  //     // setConvertedAmount(response.data.convertedValue || 0);
+  //     const convertedValue = response.data.data.quote[toCurrency].price || 0;
+  //     setConvertedAmount(convertedValue.toFixed(6));
+  //   } catch (error) {
+  //     console.error("Error fetching conversion rate:", error);
+  //     setConvertedAmount("Error");
+  //   }
+  //   setLoading(false);
+  // };
   const fetchConversionRate = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(
-        "https://api.binance.com/api/v3/ticker/price",
-        {
-          headers: { "X-CMC_PRO_API_KEY": API_KEY },
-          params: { amount, symbol: fromCurrency, convert: toCurrency },
-        }
-      );
-
-      const rate = response.data.data.quote[toCurrency].price || 1;
-      setConvertedAmount(rate.toFixed(6));
+      const response = await axios.get(`https://pro-api.coinmarketcap.com/v1/tools/price-conversion`, {
+        headers: { "X-CMC_PRO_API_KEY": API_KEY },
+        params: {
+          amount: amount,
+          symbol: fromCurrency,
+          convert: toCurrency,
+        },
+      });
+      
+  
+      console.log("API Response:", response.data); // Debugging
+  
+      if (response.data && response.data.data && response.data.data.quote[toCurrency]) {
+        const convertedValue = response.data.data.quote[toCurrency].price || 0;
+        setConvertedAmount(convertedValue.toFixed(6)); // Format to 6 decimal places
+      } else {
+        console.error("Error: Missing conversion data.");
+        setConvertedAmount("Error");
+      }
     } catch (error) {
       console.error("Error fetching conversion rate:", error);
       setConvertedAmount("Error");
     }
     setLoading(false);
   };
+  
+  
 
   const swapCurrencies = () => {
     setFromCurrency(toCurrency);
@@ -228,12 +346,13 @@ const CryptoConverter = () => {
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="input-field"
           min="0"
         />
         <select value={fromCurrency} onChange={(e) => setFromCurrency(e.target.value)}>
           {currencyOptions.map((curr) => (
-            <option key={curr} value={curr}>{curr}</option>
+            <option key={curr} value={curr}>
+              {curr}
+            </option>
           ))}
         </select>
 
@@ -243,19 +362,23 @@ const CryptoConverter = () => {
 
         <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
           {currencyOptions.map((curr) => (
-            <option key={curr} value={curr}>{curr}</option>
+            <option key={curr} value={curr}>
+              {curr}
+            </option>
           ))}
         </select>
       </div>
 
       <p className="conversion-result">
         {amount} {fromCurrency} ={" "}
-        <span className="highlight">{loading ? "Loading..." : convertedAmount}</span> {toCurrency}
+        <span className="highlight">
+          {loading ? "Loading..." : convertedAmount}
+        </span>{" "}
+        {toCurrency}
       </p>
-
-      <button className="refresh-btn" onClick={fetchConversionRate}>Refresh</button>
     </div>
   );
 };
 
 export default CryptoConverter;
+

@@ -49,7 +49,7 @@
 } */ 
 
 
- .crypto-table-container {
+.crypto-table-container {
     width: 100%;
     overflow-x: auto; 
     display: flex;
@@ -145,4 +145,3 @@ td {
     background-color: #333;
   }
     
-
