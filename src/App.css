@@ -1,4 +1,11 @@
 /* Global Styles */
+
+html, body {
+  height: 100%;
+  overflow-x: hidden; 
+   overflow-y:auto; 
+  scroll-behavior: smooth;
+}
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -8,10 +15,11 @@ body {
 
 /* App Layout */
 .app-container {
-  max-width: 800px;
+  max-width: 1500px;
   margin: 0 auto;
   padding: 20px;
-}
+  min-height: 100vh;
+} 
 
 .header {
   text-align: center;
@@ -61,11 +69,11 @@ input {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .crypto-table {
-  width: 80%;
+  width: 90%;
   margin: auto;
   background-color: #1e1e1e;
   color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   text-align: center;
 }
@@ -88,3 +96,30 @@ img {
   vertical-align: middle;
   margin-right: 5px;
 }
+
+#particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; 
+  /* pointer-events: none; 
+  overflow: hidden; */
+}  
+
+.app-content {
+  position: relative;
+  z-index: 1; 
+} 
+
+/* #particle-canvas {
+  position: fixed;       
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;         
+  z-index: -1;           
+  pointer-events: none;  
+} */
+
