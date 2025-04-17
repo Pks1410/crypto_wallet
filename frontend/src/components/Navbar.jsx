@@ -12,6 +12,8 @@ const Navbar = () => {
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/walletdashboard">Create Wallet</Link></li>
         <li><Link to="/walletManager">Import Wallet</Link></li>
+        {/* <li><Link to="/NFTmarketplace">NFTMarketplace</Link></li> */}
+        <Link to="/NFTmarketplace" className="nav-link">NFT Marketplace</Link>
       </ul>
     </nav>
   );

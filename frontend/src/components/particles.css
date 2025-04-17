@@ -74,7 +74,7 @@ p {
 }
 
 .btn {
-    background: linear-gradient(90deg, #ff3a82, #5233ff);
+    background: linear-gradient(90deg, #0a0909, #5233ff);
     color: white;
     font-weight: 600;
     font-size: 1rem;
@@ -90,7 +90,7 @@ p {
 
 .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(255, 58, 130, 0.4);
+    box-shadow: 0 6px 25px rgba(54, 86, 105, 0.4);
 }
 
 /* .gradient-background {
