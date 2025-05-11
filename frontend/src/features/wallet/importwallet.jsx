@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ethers} from "ethers";
 
-const WalletManager = () => {
+const ImportWallet = () => {
   const [wallet, setWallet] = useState(null);
   const [mnemonic, setMnemonic] = useState('');
 
@@ -51,4 +51,4 @@ const WalletManager = () => {
   );
 };
 
-export default WalletManager;
+export default ImportWallet;

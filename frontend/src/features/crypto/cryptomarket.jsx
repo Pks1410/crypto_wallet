@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./cryptomarket.css";
+// import "./cryptomarket.css";
 
 const CryptoMarket = () => {
   const [marketData, setMarketData] = useState([]);

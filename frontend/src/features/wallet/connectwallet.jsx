@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BrowserProvider } from "ethers";
 
-const WalletDashboard = () => {
+const ConnectWallet = () => {
   const [address, setAddress] = useState(null);
 
   const connectWallet = async () => {
@@ -28,4 +28,4 @@ const WalletDashboard = () => {
   );
 };
 
-export default WalletDashboard;
+export default ConnectWallet;

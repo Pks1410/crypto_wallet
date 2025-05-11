@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useWeb3 } from "./web3context";
-import axios from "axios";
-import "./NFTMarketplace.css";
+import { useWeb3 } from "../../context/web3context";
+// import axios from "axios";
+import "./nftmarketplace.css";
 
 const NFTDetails = () => {
   const { id } = useParams();

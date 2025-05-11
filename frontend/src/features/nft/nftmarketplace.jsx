@@ -131,9 +131,9 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useWeb3 } from "./web3context"; // Assuming you have a Web3 context
-import axios from "axios"; // For API calls
-import "./NFTMarketplace.css";
+import { useWeb3 } from "../../context/web3context"; // Assuming you have a Web3 context
+// import axios from "axios"; // For API calls
+import "./nftmarketplace.css";
 
 const NFTMarketplace = () => {
   const [activeTab, setActiveTab] = useState("browse");
