@@ -52,10 +52,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 import "./Navbar.css";
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   return (
@@ -67,7 +69,7 @@ const Navbar = () => {
       </h2>
       <ul className="nav-links">
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         {!isAuthenticated ? (
           <li>
@@ -100,6 +102,21 @@ const Navbar = () => {
           </>
         )}
       </ul>
+      <button
+        className="theme-toggle-btn"
+        onClick={toggleTheme}
+        style={{
+          marginLeft: 16,
+          padding: "6px 12px",
+          borderRadius: 6,
+          border: "none",
+          background: theme === "dark" ? "#fff" : "#181a20",
+          color: theme === "dark" ? "#181a20" : "#fff",
+          cursor: "pointer"
+        }}
+      >
+        {theme === "dark" ? "Light Mode" : "Dark Mode"}
+      </button>
     </nav>
   );
 };

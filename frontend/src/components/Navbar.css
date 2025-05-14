@@ -27,3 +27,7 @@
     color: #f2a900; /* Bitcoin gold color */
   }
   
+  .theme-toggle-btn {
+    transition: background 0.2s, color 0.2s;
+  }
+  

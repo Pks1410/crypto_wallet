@@ -13,6 +13,72 @@ body {
   color: #333;
 }
 
+body[data-theme="dark"] {
+  background: #181a20;
+  color: #fff;
+}
+
+body[data-theme="light"] {
+  background: #f5f6fa;
+  color: #181a20;
+}
+
+/* Navbar */
+body[data-theme="dark"] .navbar {
+  background-color: #111;
+  color: #fff;
+}
+body[data-theme="light"] .navbar {
+  background-color: #fff;
+  color: #181a20;
+}
+body[data-theme="light"] .nav-links a {
+  color: #181a20;
+}
+body[data-theme="dark"] .nav-links a {
+  color: #fff;
+}
+
+/* Cards */
+body[data-theme="dark"] .card,
+body[data-theme="dark"] .crypto-table {
+  background-color: #1e1e1e;
+  color: #fff;
+}
+body[data-theme="light"] .card,
+body[data-theme="light"] .crypto-table {
+  background-color: #fff;
+  color: #181a20;
+}
+
+/* Buttons */
+body[data-theme="dark"] button,
+body[data-theme="dark"] .auth-btn {
+  background-color: #6200ea;
+  color: #fff;
+}
+body[data-theme="light"] button,
+body[data-theme="light"] .auth-btn {
+  background-color: #e0e0e0;
+  color: #181a20;
+}
+body[data-theme="light"] button:hover,
+body[data-theme="light"] .auth-btn:hover {
+  background-color: #bdbdbd;
+}
+
+/* Inputs */
+body[data-theme="dark"] input {
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+}
+body[data-theme="light"] input {
+  background: #fff;
+  color: #181a20;
+  border: 1px solid #ccc;
+}
+
 /* App Layout */
 .app-container {
   max-width: 1500px;
@@ -71,7 +137,7 @@ input {
 .crypto-table {
   width: 90%;
   margin: auto;
-  background-color: #1e1e1e;
+  background-color: #1e1e1e; 
   color: white;
   padding: 30px;
   border-radius: 10px;
@@ -122,4 +188,6 @@ img {
   z-index: -1;           
   pointer-events: none;  
 } */
+
+/* Add more theme-specific styles as needed */
 
