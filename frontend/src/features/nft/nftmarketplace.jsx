@@ -134,6 +134,7 @@ import { Link } from "react-router-dom";
 import { useWeb3 } from "../../context/web3context"; // Assuming you have a Web3 context
 // import axios from "axios"; // For API calls
 import "./nftmarketplace.css";
+import MintNFT from "./MintNFT";
 
 const NFTMarketplace = () => {
   const [activeTab, setActiveTab] = useState("browse");
@@ -183,13 +184,6 @@ const NFTMarketplace = () => {
     // In a real app, this would interact with a smart contract
     alert(`Buying NFT with ID: ${nftId}`);
     // Example: contract.methods.buyNFT(nftId).send({ from: account });
-  };
-
-  const handleCreateNFT = async (e) => {
-    e.preventDefault();
-    // In a real app, this would mint a new NFT
-    alert("NFT creation would be handled here");
-    // Example: contract.methods.mintNFT(metadataURI).send({ from: account });
   };
 
   if (loading) {
@@ -301,58 +295,7 @@ const NFTMarketplace = () => {
       {activeTab === "create" && (
         <div className="create-section">
           <h2>Create New NFT</h2>
-          <form className="create-form" onSubmit={handleCreateNFT}>
-            <div className="form-group">
-              <label>NFT Name</label>
-              <input 
-                type="text" 
-                placeholder="Enter NFT name" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Description</label>
-              <textarea 
-                placeholder="Describe your NFT"
-                required
-              ></textarea>
-            </div>
-            <div className="form-group">
-              <label>Upload Image</label>
-              <input 
-                type="file" 
-                accept="image/*" 
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Price (ETH)</label>
-              <input 
-                type="number" 
-                placeholder="0.00" 
-                step="0.01" 
-                min="0"
-                required 
-              />
-            </div>
-            <div className="form-group">
-              <label>Category</label>
-              <select required>
-                <option value="">Select a category</option>
-                <option value="art">Art</option>
-                <option value="collectibles">Collectibles</option>
-                <option value="music">Music</option>
-                <option value="photography">Photography</option>
-              </select>
-            </div>
-            <button 
-              type="submit" 
-              className="create-button"
-              disabled={!account}
-            >
-              {account ? "Mint NFT" : "Connect Wallet to Mint"}
-            </button>
-          </form>
+          <MintNFT />
         </div>
       )}
     </div>

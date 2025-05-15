@@ -23,6 +23,7 @@ import PortfolioChart from "./features/portfolio/PortfolioChart.jsx";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ThemeProvider } from "./context/ThemeContext";
 import NewsFeed from "./features/news/NewsFeed.jsx";
+import MintNFT from "./features/nft/MintNFT.jsx";
 
 const ScrollToTop = () => {
   // eslint-disable-next-line no-undef
@@ -43,6 +44,7 @@ const LandingPage = () => (
     <CryptoMarket />
     <CryptoScroller />
     <NewsFeed />
+    <MintNFT />
     {/* <PortfolioChart /> */}
   </>
 );
