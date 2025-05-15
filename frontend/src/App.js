@@ -56,7 +56,7 @@ function App() {
             <Router>
               <div className="app-wrapper">
                 <ParticlesBackground />
-                <ScrollToTop />
+                <ScrollToTop /> 
                 <div className="app-content">
                   <Navbar />
                   <div className="app-container">
