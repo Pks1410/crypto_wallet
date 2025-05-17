@@ -166,7 +166,7 @@
     color: white;
     padding: 1rem;
     margin-top: 1rem;
-  } 
+  }
 
   /* NFT Details Page Styles */
 /* .nft-details {
@@ -275,3 +275,54 @@
     max-width: 500px;
     margin: 0 auto;
   } */
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+  }
+
+  .loading {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+  }
+
+  .connect-wallet-prompt {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: 2rem 0;
+  }
+
+  .connect-wallet-prompt p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    color: #666;
+  }
+
+  .connect-wallet {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .connect-wallet:hover {
+    background: #45a049;
+  }
+
+  .error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 1rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    text-align: center;
+  }

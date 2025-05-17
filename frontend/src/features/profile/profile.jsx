@@ -3,8 +3,9 @@ const Profile = () => {
   const { user } = useAuth();
   return (
     <div>
-      <h2>Profile</h2>
-      <p><strong>Email:</strong> {user?.email || "user@example.com"}</p>
+      <img src={user?.picture} alt="Profile" />
+      <h2>{user?.name}</h2>
+      <p>{user?.email}</p>
       <p><strong>Wallet Address:</strong> {user?.walletAddress || "0x123...abc"}</p>
       <p><strong>Joined:</strong> {user?.joined || "2024-01-01"}</p>
       <p><strong>NFTs Owned:</strong> {user?.nftsOwned || 0}</p>

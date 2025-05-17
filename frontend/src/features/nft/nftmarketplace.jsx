@@ -131,47 +131,101 @@
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useWeb3 } from "../../context/web3context"; // Assuming you have a Web3 context
-// import axios from "axios"; // For API calls
+import { useWeb3 } from "../../context/web3context";
+import { Contract } from "ethers";
+import contractABI from "./MyNFT_ABI.json";
 import "./nftmarketplace.css";
 import MintNFT from "./MintNFT";
 
 const NFTMarketplace = () => {
   const [activeTab, setActiveTab] = useState("browse");
   const [nfts, setNfts] = useState([]);
+  const [myNFTs, setMyNFTs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
-  const { account, connectWallet } = useWeb3(); // From your wallet context
+  const { account, connectWallet, provider, error } = useWeb3();
 
-  // Fetch NFTs from an API (mock data for now)
+  const CONTRACT_ADDRESS = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+
+  // Fetch all NFTs
   useEffect(() => {
     const fetchNFTs = async () => {
+      setLoading(true);
       try {
-        // In a real app, you would fetch from an API like OpenSea or your backend
-        const mockData = [
-          {
-            id: 1,
-            name: 'CryptoPunk #1234',
-            price: '2.5 ETH',
-            image: 'https://via.placeholder.com/300',
-            owner: '0x123...456',
-            description: 'Rare CryptoPunk from the original collection',
-            category: 'collectibles'
-          },
-          // ... more mock data
-        ];
-        
-        setNfts(mockData);
-        setLoading(false);
+        // Replace with your Alchemy API key
+        const apiKey = "d6EwrbI8tr4FyGoub47Zj2-UZCBsyzJ_";
+        // Example: fetch NFTs from a popular collection (e.g., Bored Ape Yacht Club)
+        const contractAddress = "0xBC4CA0eda7647A8ab7c2061c2e118A18a936f13D";
+        const url = `https://eth-mainnet.g.alchemy.com/nft/v2/${apiKey}/getNFTsForCollection?contractAddress=${contractAddress}&withMetadata=true`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Transform Alchemy NFT data to your UI format
+        const nfts = (data.nfts || []).map((nft, idx) => ({
+          id: nft.id?.tokenId || idx,
+          name: nft.title || nft.metadata?.name || "NFT",
+          price: "N/A", // Alchemy API does not provide price
+          image: nft.media?.[0]?.gateway || nft.metadata?.image || "",
+          owner: nft.owner || "N/A",
+          description: nft.description || nft.metadata?.description || "",
+          category: "collectibles"
+        }));
+
+        setNfts(nfts);
       } catch (error) {
-        console.error("Error fetching NFTs:", error);
-        setLoading(false);
+        console.error("Error fetching NFTs from Alchemy:", error);
       }
+      setLoading(false);
     };
 
     fetchNFTs();
   }, []);
+
+  // Update fetchMyNFTs to handle errors better
+  useEffect(() => {
+    const fetchMyNFTs = async () => {
+      if (!account || !provider) return;
+
+      try {
+        setLoading(true);
+        const signer = await provider.getSigner();
+        const contract = new Contract(CONTRACT_ADDRESS, contractABI, signer);
+        
+        const balance = await contract.balanceOf(account);
+        
+        const nfts = [];
+        for (let i = 0; i < balance; i++) {
+          const tokenId = await contract.tokenOfOwnerByIndex(account, i);
+          const tokenURI = await contract.tokenURI(tokenId);
+          
+          try {
+            const response = await fetch(tokenURI);
+            const metadata = await response.json();
+            
+            nfts.push({
+              id: tokenId.toString(),
+              name: metadata.name,
+              description: metadata.description,
+              image: metadata.image,
+              tokenURI: tokenURI
+            });
+          } catch (error) {
+            console.error(`Error fetching metadata for token ${tokenId}:`, error);
+          }
+        }
+        
+        setMyNFTs(nfts);
+      } catch (error) {
+        console.error("Error fetching user's NFTs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMyNFTs();
+  }, [account, provider]);
 
   const filteredNFTs = nfts.filter(nft => {
     const matchesSearch = nft.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -180,14 +234,38 @@ const NFTMarketplace = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleBuyNFT = (nftId) => {
-    // In a real app, this would interact with a smart contract
-    alert(`Buying NFT with ID: ${nftId}`);
-    // Example: contract.methods.buyNFT(nftId).send({ from: account });
+  const handleBuyNFT = async (nftId) => {
+    if (!account) {
+      alert("Please connect your wallet first!");
+      return;
+    }
+
+    try {
+      const signer = await provider.getSigner();
+      const contract = new Contract(CONTRACT_ADDRESS, contractABI, signer);
+      const tx = await contract.buyNFT(nftId);
+      await tx.wait();
+      alert("NFT purchased successfully!");
+    } catch (error) {
+      console.error("Error buying NFT:", error);
+      alert("Error buying NFT. Please try again.");
+    }
+  };
+
+  const handleConnectWallet = async () => {
+    try {
+      await connectWallet();
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+    }
   };
 
   if (loading) {
-    return <div className="loading">Loading NFTs...</div>;
+    return (
+      <div className="loading-container">
+        <div className="loading">Loading NFTs...</div>
+      </div>
+    );
   }
 
   return (
@@ -217,47 +295,90 @@ const NFTMarketplace = () => {
       
       {activeTab === "browse" && (
         <div className="browse-section">
-          <div className="search-filter">
-            <input 
-              type="text" 
-              placeholder="Search by name, collection, or artist..." 
-              className="search-input"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <select 
-              className="category-select"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="all">All Categories</option>
-              <option value="art">Art</option>
-              <option value="collectibles">Collectibles</option>
-              <option value="music">Music</option>
-              <option value="photography">Photography</option>
-            </select>
-          </div>
-          
-          {filteredNFTs.length > 0 ? (
+          {!account ? (
+            <div className="connect-wallet-prompt">
+              <p>Connect your wallet to browse NFTs</p>
+              <button className="connect-wallet" onClick={handleConnectWallet}>
+                Connect Wallet
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="search-filter">
+                <input 
+                  type="text" 
+                  placeholder="Search by name, collection, or artist..." 
+                  className="search-input"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <select 
+                  className="category-select"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
+                  <option value="all">All Categories</option>
+                  <option value="art">Art</option>
+                  <option value="collectibles">Collectibles</option>
+                  <option value="music">Music</option>
+                  <option value="photography">Photography</option>
+                </select>
+              </div>
+              
+              {filteredNFTs.length > 0 ? (
+                <div className="nft-grid">
+                  {filteredNFTs.map(nft => (
+                    <div key={nft.id} className="nft-card">
+                      <img src={nft.image} alt={nft.name} className="nft-image" />
+                      <div className="nft-info">
+                        <h3 className="nft-name">{nft.name}</h3>
+                        <p className="nft-price">Price: {nft.price}</p>
+                        <p className="nft-owner">Owner: {nft.owner}</p>
+                        <div className="nft-actions">
+                          <button 
+                            className="buy-button"
+                            onClick={() => handleBuyNFT(nft.id)}
+                          >
+                            Buy Now
+                          </button>
+                          <Link to={`/nft-details/${nft.id}`} className="details-button">
+                            View Details
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="no-nfts">No NFTs found matching your criteria.</p>
+              )}
+            </>
+          )}
+        </div>
+      )}
+      
+      {activeTab === "my-collections" && (
+        <div className="collections-section">
+          {!account ? (
+            <div className="connect-wallet-prompt">
+              <p>Connect your wallet to view your NFTs</p>
+              <button className="connect-wallet" onClick={handleConnectWallet}>
+                Connect Wallet
+              </button>
+            </div>
+          ) : loading ? (
+            <div className="loading">Loading your NFTs...</div>
+          ) : myNFTs.length > 0 ? (
             <div className="nft-grid">
-              {filteredNFTs.map(nft => (
+              {myNFTs.map(nft => (
                 <div key={nft.id} className="nft-card">
                   <img src={nft.image} alt={nft.name} className="nft-image" />
                   <div className="nft-info">
                     <h3 className="nft-name">{nft.name}</h3>
-                    <p className="nft-price">Price: {nft.price}</p>
-                    <p className="nft-owner">Owner: {nft.owner}</p>
+                    <p className="nft-description">{nft.description}</p>
                     <div className="nft-actions">
-                      <button 
-                        className="buy-button"
-                        onClick={() => handleBuyNFT(nft.id)}
-                      >
-                        Buy Now
-                      </button>
-                      <Link 
-                        to={`/nft-details/${nft.id}`} 
-                        className="details-button"
-                      >
+                      <button className="list-button">List for Sale</button>
+                      <Link to={`/nft-details/${nft.id}`} className="details-button">
                         View Details
                       </Link>
                     </div>
@@ -266,36 +387,29 @@ const NFTMarketplace = () => {
               ))}
             </div>
           ) : (
-            <div className="no-results">No NFTs found matching your criteria</div>
-          )}
-        </div>
-      )}
-      
-      {activeTab === "my-collections" && (
-        <div className="collections-section">
-          {account ? (
-            <div className="user-collections">
-              <h2>Your NFT Collection</h2>
-              {/* Display user's NFTs here */}
-            </div>
-          ) : (
-            <div className="connect-wallet-prompt">
-              <p>Connect your wallet to view your collections</p>
-              <button 
-                className="connect-wallet"
-                onClick={connectWallet}
-              >
-                Connect Wallet
-              </button>
-            </div>
+            <p className="no-nfts">You don't own any NFTs yet.</p>
           )}
         </div>
       )}
       
       {activeTab === "create" && (
         <div className="create-section">
-          <h2>Create New NFT</h2>
-          <MintNFT />
+          {!account ? (
+            <div className="connect-wallet-prompt">
+              <p>Connect your wallet to create NFTs</p>
+              <button className="connect-wallet" onClick={handleConnectWallet}>
+                Connect Wallet
+              </button>
+            </div>
+          ) : (
+            <MintNFT />
+          )}
+        </div>
+      )}
+
+      {error && (
+        <div className="error-message">
+          {error}
         </div>
       )}
     </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from '@react-oauth/google';
+import jwt_decode from 'jwt-decode';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -21,6 +23,12 @@ const Login = () => {
     }
   };
 
+  const handleSuccess = (credentialResponse) => {
+    const decoded = jwt_decode(credentialResponse.credential);
+    console.log(decoded); // Contains user info (email, name, picture)
+    // Update user profile here
+  };
+
   return (
     <div>
       <h2>Login</h2>
@@ -29,6 +37,10 @@ const Login = () => {
         <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
         <button type="submit">Login</button>
       </form>
+      <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={() => console.log('Login Failed')}
+      />
     </div>
   );
 };

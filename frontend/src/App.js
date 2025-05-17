@@ -44,17 +44,19 @@ const LandingPage = () => (
     <CryptoMarket />
     <CryptoScroller />
     <NewsFeed />
-    <MintNFT />
+    {/* <MintNFT /> */}
     {/* <PortfolioChart /> */}
   </>
 );
+
+const clientId = "YOUR_GOOGLE_CLIENT_ID";
 
 function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
         <Web3Provider>
-          <GoogleOAuthProvider clientId="696227025716-gs6mcq0daldnc5fk5osd87cp44eqpv6o.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId={clientId}>
             <Router>
               <div className="app-wrapper">
                 <ParticlesBackground />
